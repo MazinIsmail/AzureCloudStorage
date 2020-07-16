@@ -1,6 +1,5 @@
 package com.azureCloudStorage.learnings.controller;
 
-import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.azureCloudStorage.learnings.model.FileDetails;
 import com.azureCloudStorage.learnings.service.BlobService;
 import com.azureCloudStorage.learnings.service.ContainerService;
 
@@ -71,11 +69,7 @@ public class ContainerController {
 			@RequestParam("files") @NotEmpty MultipartFile[] multipartFiles,
 			@RequestParam("containerName") @NotEmpty String containerName) {
 		logger.info("In uploadFilesToContainer() ");
-		List<URI> urlList = new ArrayList<>();
-		for (MultipartFile multipartFile : multipartFiles) {
-			URI url = containerService.uploadToContainer(multipartFile, containerName);
-			urlList.add(url);
-		}
+		List<URI> urlList = containerService.uploadMultipleBlobToContainer(multipartFiles, containerName);
 		return new ResponseEntity<>(urlList, HttpStatus.OK);
 	}
 
@@ -83,11 +77,8 @@ public class ContainerController {
 	public ResponseEntity<?> uploadToSubDirectory(@RequestParam("files") @NotEmpty MultipartFile[] multipartFiles,
 			@RequestParam("containerName") @NotEmpty String containerName,
 			@RequestParam("subDirectoryName") @NotEmpty String subDirectoryName) {
-		List<URI> urlList = new ArrayList<>();
-		for (MultipartFile multipartFile : multipartFiles) {
-			URI url = containerService.uploadToSubDirectory(multipartFile, containerName, subDirectoryName);
-			urlList.add(url);
-		}
+		List<URI> urlList = containerService.uploadMultipleBlobToSubDirectory(multipartFiles, containerName,
+				subDirectoryName);
 		return ResponseEntity.ok(urlList);
 	}
 
@@ -105,8 +96,6 @@ public class ContainerController {
 			@RequestParam(name = "subdirectory") @NotEmpty String subdirectory) {
 		List<String> fileList = containerService.getBlobList(container, subdirectory);
 		for (String file : fileList) {
-//			?File f = new File(file.getFileUrl());
-			System.out.println(file);
 			blobService.deleteBlob(container, file);
 		}
 		return new ResponseEntity<>("", HttpStatus.OK);

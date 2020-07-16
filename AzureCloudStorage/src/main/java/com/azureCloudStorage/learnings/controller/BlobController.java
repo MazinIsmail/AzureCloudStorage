@@ -51,7 +51,7 @@ public class BlobController {
 		}
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@GetMapping("/{containerName}")
 	public ResponseEntity<?> getAllBlobs(@PathVariable("containerName") String containerName) {
 		List<?> uris = blobService.listFileDetails(containerName);
@@ -67,8 +67,6 @@ public class BlobController {
 
 	@PostMapping("/move")
 	public ResponseEntity<URI> moveBlobToOneToAnotherContainerWithSubDir(@RequestBody BlobMove moveFile) {
-		// srcBlobName and destBlobName should be in this format --
-		// subdirectory/filename
 		URI status = blobService.moveBlobFromOneContainerToAnother(moveFile.getSrcBlobName(),
 				moveFile.getContainerName(), moveFile.getDestContainerName(), moveFile.getDestBlobName());
 		return ResponseEntity.ok(status);

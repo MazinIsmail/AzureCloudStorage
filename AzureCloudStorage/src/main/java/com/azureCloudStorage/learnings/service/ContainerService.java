@@ -56,7 +56,7 @@ public class ContainerService {
 		return containerCreated;
 	}
 
-	public URI uploadToContainer(MultipartFile multipartFile, String containerName) {
+	public URI uploadSingleBlobToContainer(MultipartFile multipartFile, String containerName) {
 		logger.info("In uploadToContainer()");
 		URI uri = null;
 		CloudBlockBlob blob = null;
@@ -75,6 +75,15 @@ public class ContainerService {
 			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
 		}
 		return uri;
+	}
+
+	public List<URI> uploadMultipleBlobToContainer(MultipartFile[] multipartFiles, String containerName) {
+		List<URI> urlList = new ArrayList<>();
+		for (MultipartFile multipartFile : multipartFiles) {
+			URI url = uploadSingleBlobToContainer(multipartFile, containerName);
+			urlList.add(url);
+		}
+		return urlList;
 	}
 
 	public URI upload(MultipartFile multipartFile, String containerName, String subDirectoryName) {
@@ -99,7 +108,8 @@ public class ContainerService {
 		return uri;
 	}
 
-	public URI uploadToSubDirectory(MultipartFile multipartFile, String containerName, String subDirectoryName) {
+	public URI uploadSingleBlobToSubDirectory(MultipartFile multipartFile, String containerName,
+			String subDirectoryName) {
 		logger.info("uploadToSubDirectory()");
 		URI uri = null;
 		CloudBlockBlob blob = null;
@@ -119,6 +129,16 @@ public class ContainerService {
 			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
 		}
 		return uri;
+	}
+
+	public List<URI> uploadMultipleBlobToSubDirectory(MultipartFile[] multipartFiles, String containerName,
+			String subDirectoryName) {
+		List<URI> urlList = new ArrayList<>();
+		for (MultipartFile multipartFile : multipartFiles) {
+			URI url = uploadSingleBlobToSubDirectory(multipartFile, containerName, subDirectoryName);
+			urlList.add(url);
+		}
+		return urlList;
 	}
 
 	public List<String> getBlobList(String containerName, String subDirectoryName) {
@@ -218,9 +238,8 @@ public class ContainerService {
 							containerBlobList.add(cloudBlob.getName());
 						}
 					}
-				}
-				else {
-					containerBlobList.add(((CloudBlob)blob).getName());
+				} else {
+					containerBlobList.add(((CloudBlob) blob).getName());
 				}
 			}
 		} catch (URISyntaxException e) {

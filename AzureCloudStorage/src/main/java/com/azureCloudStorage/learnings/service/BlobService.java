@@ -85,7 +85,6 @@ public class BlobService {
 					BlobProperties prop = blob.getProperties();
 					fileDetails.setFileUrl(blobItem.getUri().toString());
 					fileDetails.setFileDate(prop.getLastModified().toString());
-					// uris.add(blobItem.getUri());
 					uris.add(fileDetails);
 					logger.info("the pro {}", prop.getLastModified());
 					logger.info("the create {}", prop.getCreatedTime());
