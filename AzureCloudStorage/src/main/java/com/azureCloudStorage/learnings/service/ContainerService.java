@@ -209,8 +209,9 @@ public class ContainerService {
 			for (ListBlobItem blob : blobs) {
 				if (blob instanceof CloudBlobDirectory) {
 					CloudBlobDirectory directory = (CloudBlobDirectory) blob;
-					if (!subDirectoryList.contains(directory.getPrefix()))
+					if (!subDirectoryList.contains(directory.getPrefix())) {
 						subDirectoryList.add(directory.getPrefix());
+					}
 				}
 			}
 		} catch (URISyntaxException e) {
@@ -228,20 +229,7 @@ public class ContainerService {
 		try {
 			CloudBlobContainer myCloudBlobContainer = cloudBlobClient.getContainerReference(containerName);
 			Iterable<ListBlobItem> blobs = myCloudBlobContainer.listBlobs();
-			for (ListBlobItem blob : blobs) {
-				if (blob instanceof CloudBlobDirectory) {
-					CloudBlobDirectory directory = (CloudBlobDirectory) blob;
-					Iterable<ListBlobItem> blobList = directory.listBlobs();
-					for (ListBlobItem blobNew : blobList) {
-						if (blobNew instanceof CloudBlob) {
-							CloudBlob cloudBlob = (CloudBlob) blobNew;
-							containerBlobList.add(cloudBlob.getName());
-						}
-					}
-				} else {
-					containerBlobList.add(((CloudBlob) blob).getName());
-				}
-			}
+			recursiveBlobs(containerBlobList, blobs);
 		} catch (URISyntaxException e) {
 			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
 		} catch (StorageException e) {
@@ -250,5 +238,27 @@ public class ContainerService {
 			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
 		}
 		return containerBlobList;
+	}
+
+	private void recursiveBlobs(List<String> containerBlobList, Iterable<ListBlobItem> blobs)
+			throws StorageException, URISyntaxException {
+		for (ListBlobItem blob : blobs) {
+			if (blob instanceof CloudBlobDirectory) {
+				CloudBlobDirectory directory = (CloudBlobDirectory) blob;
+				Iterable<ListBlobItem> blobList = directory.listBlobs();
+				for (ListBlobItem blobNew : blobList) {
+					if (blobNew instanceof CloudBlob) {
+						CloudBlob cloudBlob = (CloudBlob) blobNew;
+						containerBlobList.add(cloudBlob.getName());
+					} else if (blobNew instanceof CloudBlobDirectory) {
+						CloudBlobDirectory directoryNew = (CloudBlobDirectory) blobNew;
+						Iterable<ListBlobItem> blobListNew = directoryNew.listBlobs();
+						recursiveBlobs(containerBlobList, blobListNew);
+					}
+				}
+			} else {
+				containerBlobList.add(((CloudBlob) blob).getName());
+			}
+		}
 	}
 }
