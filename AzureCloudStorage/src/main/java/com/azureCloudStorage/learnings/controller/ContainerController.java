@@ -42,6 +42,18 @@ public class ContainerController {
 		return ResponseEntity.ok(containers);
 	}
 
+	@GetMapping("/blobs")
+	public ResponseEntity<?> getAllContainerBlobs(@RequestParam("containerName") @NotEmpty String container) {
+		List<String> containerBlobs = containerService.getContainerBlobs(container);
+		return ResponseEntity.ok(containerBlobs);
+	}
+
+	@GetMapping("/subdirectory")
+	public ResponseEntity<?> getAllSubDirectories(@RequestParam("containerName") @NotEmpty String container) {
+		List<String> subDirectories = containerService.getListSubDirectories(container);
+		return ResponseEntity.ok(subDirectories);
+	}
+
 	@PostMapping("/")
 	public ResponseEntity<?> createContainer(@RequestParam("containerName") @NotEmpty String containerName) {
 		boolean created = containerService.createContainer(containerName);
@@ -55,7 +67,8 @@ public class ContainerController {
 	}
 
 	@PostMapping("/uploadfiles/container")
-	public ResponseEntity<List<URI>> uploadFilesToContainer(@RequestParam("files") @NotEmpty MultipartFile[] multipartFiles,
+	public ResponseEntity<List<URI>> uploadFilesToContainer(
+			@RequestParam("files") @NotEmpty MultipartFile[] multipartFiles,
 			@RequestParam("containerName") @NotEmpty String containerName) {
 		logger.info("In uploadFilesToContainer() ");
 		List<URI> urlList = new ArrayList<>();
@@ -68,7 +81,7 @@ public class ContainerController {
 
 	@PostMapping("/uploadfiles/subdirectory")
 	public ResponseEntity<?> uploadToSubDirectory(@RequestParam("files") @NotEmpty MultipartFile[] multipartFiles,
-			@RequestParam("containerName")  @NotEmpty String containerName,
+			@RequestParam("containerName") @NotEmpty String containerName,
 			@RequestParam("subDirectoryName") @NotEmpty String subDirectoryName) {
 		List<URI> urlList = new ArrayList<>();
 		for (MultipartFile multipartFile : multipartFiles) {
@@ -79,30 +92,22 @@ public class ContainerController {
 	}
 
 	@DeleteMapping("/clear")
-	public ResponseEntity<?> clearContainer(@RequestParam(name = "container") @NotEmpty String container) {
-
-	List<URI> list = blobService.listBlobs(container);
-	for(URI uri : list) {
-		System.out.println(uri);
-	}
+	public ResponseEntity<?> clearContainer(@RequestParam(name = "containerName") @NotEmpty String container) {
+		List<String> list = containerService.getContainerBlobs(container);
+		for (String blob : list) {
+			blobService.deleteBlob(container, blob);
+		}
 		return new ResponseEntity<>("", HttpStatus.OK);
 	}
-	
-	@DeleteMapping("/clear/subdirectory")
-	public ResponseEntity<?> clearSubdirectory(@RequestParam(name = "container") @NotEmpty String container,
-			@RequestParam(name = "subdirectory") @NotEmpty String subdirectory) {
 
-		String containerName = container.split(File.separator)[0];
-		String subDirectoryName = container.split(File.separator)[1];
-		if (subDirectoryName.equalsIgnoreCase("All")) {
-			containerService.deleteContainer(containerName);
-			containerService.createContainer(containerName);
-		} else {
-			List<FileDetails> fileList = blobService.getDirectoryListDetails(containerName, subDirectoryName);
-			for (FileDetails file : fileList) {
-				File f = new File(file.getFileUrl());
-				blobService.deleteBlob(containerName, subDirectoryName + File.separator + f.getName());
-			}
+	@DeleteMapping("/clear/subdirectory")
+	public ResponseEntity<?> clearSubdirectory(@RequestParam(name = "containerName") @NotEmpty String container,
+			@RequestParam(name = "subdirectory") @NotEmpty String subdirectory) {
+		List<String> fileList = containerService.getBlobList(container, subdirectory);
+		for (String file : fileList) {
+//			?File f = new File(file.getFileUrl());
+			System.out.println(file);
+			blobService.deleteBlob(container, subdirectory + File.separator + file);
 		}
 		return new ResponseEntity<>("", HttpStatus.OK);
 	}

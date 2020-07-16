@@ -17,6 +17,7 @@ import com.microsoft.azure.storage.OperationContext;
 import com.microsoft.azure.storage.StorageException;
 import com.microsoft.azure.storage.blob.BlobContainerPublicAccessType;
 import com.microsoft.azure.storage.blob.BlobRequestOptions;
+import com.microsoft.azure.storage.blob.CloudBlob;
 import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.CloudBlobDirectory;
@@ -120,13 +121,13 @@ public class ContainerService {
 		return uri;
 	}
 
-	public List<URI> getDirectoryList(String directoryName, String subDirectoryName) {
+	public List<String> getBlobList(String containerName, String subDirectoryName) {
 		logger.info("In getDirectoryList()");
 		CloudBlobContainer container = null;
 		CloudBlobDirectory subDirectory = null;
-		List<URI> uris = new ArrayList<>();
+		List<String> blobList = new ArrayList<>();
 		try {
-			container = cloudBlobClient.getContainerReference(directoryName);
+			container = cloudBlobClient.getContainerReference(containerName);
 			logger.info("Container Name:{}", container.getName());
 			logger.info("Is Container Exists:{}", container.exists());
 
@@ -134,7 +135,7 @@ public class ContainerService {
 			logger.info("Sub Directory Path:{}", subDirectory.getPrefix());
 
 			for (ListBlobItem blobItem : subDirectory.listBlobs()) {
-				uris.add(blobItem.getUri());
+				blobList.add(((CloudBlob) blobItem).getName());
 			}
 			// Iterable<ListBlobItem> blobs = subDirectory.listBlobs();
 			// while (blobs.iterator().hasNext()) {
@@ -148,7 +149,7 @@ public class ContainerService {
 		} catch (Exception e) {
 			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
 		}
-		return uris;
+		return blobList;
 
 	}
 
@@ -178,5 +179,57 @@ public class ContainerService {
 			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
 		}
 		return containers;
+	}
+
+	public List<String> getListSubDirectories(String containerName) {
+		List<String> subDirectoryList = new ArrayList<>();
+		try {
+			CloudBlobContainer myCloudBlobContainer = cloudBlobClient.getContainerReference(containerName);
+			Iterable<ListBlobItem> blobs = myCloudBlobContainer.listBlobs();
+			for (ListBlobItem blob : blobs) {
+				if (blob instanceof CloudBlobDirectory) {
+					CloudBlobDirectory directory = (CloudBlobDirectory) blob;
+					if (!subDirectoryList.contains(directory.getPrefix()))
+						subDirectoryList.add(directory.getPrefix());
+				}
+			}
+		} catch (URISyntaxException e) {
+			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
+		} catch (StorageException e) {
+			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
+		} catch (Exception e) {
+			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
+		}
+		return subDirectoryList;
+	}
+
+	public List<String> getContainerBlobs(String containerName) {
+		List<String> containerBlobList = new ArrayList<>();
+		try {
+			CloudBlobContainer myCloudBlobContainer = cloudBlobClient.getContainerReference(containerName);
+			Iterable<ListBlobItem> blobs = myCloudBlobContainer.listBlobs();
+			for (ListBlobItem blob : blobs) {
+				if (blob instanceof CloudBlobDirectory) {
+					CloudBlobDirectory directory = (CloudBlobDirectory) blob;
+					Iterable<ListBlobItem> blobList = directory.listBlobs();
+					for (ListBlobItem blobNew : blobList) {
+						if (blobNew instanceof CloudBlob) {
+							CloudBlob cloudBlob = (CloudBlob) blobNew;
+							containerBlobList.add(cloudBlob.getName());
+						}
+					}
+				}
+				else {
+					containerBlobList.add(((CloudBlob)blob).getName());
+				}
+			}
+		} catch (URISyntaxException e) {
+			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
+		} catch (StorageException e) {
+			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
+		} catch (Exception e) {
+			logger.error("Error!!!,CAUSE:{} {}", e, e.getStackTrace());
+		}
+		return containerBlobList;
 	}
 }
