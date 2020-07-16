@@ -107,7 +107,7 @@ public class ContainerController {
 		for (String file : fileList) {
 //			?File f = new File(file.getFileUrl());
 			System.out.println(file);
-			blobService.deleteBlob(container, subdirectory + File.separator + file);
+			blobService.deleteBlob(container, file);
 		}
 		return new ResponseEntity<>("", HttpStatus.OK);
 	}
