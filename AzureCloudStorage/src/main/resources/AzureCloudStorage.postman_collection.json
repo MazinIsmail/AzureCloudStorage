@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "68e90c01-e4a7-4098-87ee-9ea0f76ba183",
+		"name": "AzureCloudStorage",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Containers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/container/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"container",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All SubDirectories",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "containerName",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8090/container/subdirectory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"container",
+						"subdirectory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All ContainerBlobs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "containerName",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8090/container/blobs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"container",
+						"blobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Container",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "containerName",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8090/container/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"container",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Container",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "containerName",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8090/container/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"container",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UploadFiles to Container",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "containerName",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/C:/Users/bh324231/Desktop/to do.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8090/container/uploadfiles/container",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"container",
+						"uploadfiles",
+						"container"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UploadFiles to Container and Subdirectory",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "containerName",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/C:/Users/bh324231/Desktop/to do.txt"
+						},
+						{
+							"key": "subDirectoryName",
+							"value": "files",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8090/container/uploadfiles/subdirectory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"container",
+						"uploadfiles",
+						"subdirectory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clear Container",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "containerName",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8090/container/clear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"container",
+						"clear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Blobs in Subdirectory",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/blob/test/files",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"blob",
+						"test",
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clear Subdirectory",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "containerName",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "subdirectory",
+							"value": "files",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8090/container/clear/subdirectory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"container",
+						"clear",
+						"subdirectory"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ac69fc4e-cafb-4015-93f0-e8d0ce923184",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7b7fa17b-3f26-4010-8b2a-735601f100c8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
