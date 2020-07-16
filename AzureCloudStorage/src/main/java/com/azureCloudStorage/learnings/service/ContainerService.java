@@ -30,6 +30,9 @@ public class ContainerService {
 	private static final Logger logger = LoggerFactory.getLogger(ContainerService.class);
 	@Autowired
 	private CloudBlobClient cloudBlobClient;
+	
+	@Autowired
+	private BlobService blobService;
 
 	public boolean createContainer(String containerName) {
 		logger.info("In createContainer()");
@@ -259,6 +262,20 @@ public class ContainerService {
 			} else {
 				containerBlobList.add(((CloudBlob) blob).getName());
 			}
+		}
+	}
+	
+	public void clearContainer(String container) {
+		List<String> list = getContainerBlobs(container);
+		for (String blob : list) {
+			blobService.deleteBlob(container, blob);
+		}
+	}
+	
+	public void clearSubDirectory(String container, String subdirectory) {
+		List<String> fileList = getBlobList(container, subdirectory);
+		for (String file : fileList) {
+			blobService.deleteBlob(container, file);
 		}
 	}
 }

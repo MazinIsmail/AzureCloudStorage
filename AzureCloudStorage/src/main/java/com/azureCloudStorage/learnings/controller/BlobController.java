@@ -1,6 +1,5 @@
 package com.azureCloudStorage.learnings.controller;
 
-import java.io.File;
 import java.net.URI;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.azureCloudStorage.learnings.model.BlobMove;
 import com.azureCloudStorage.learnings.model.FileDetails;
 import com.azureCloudStorage.learnings.service.BlobService;
+import com.azureCloudStorage.learnings.service.ContainerService;
 
 @RestController
 @RequestMapping(value = "/blob")
@@ -30,6 +30,9 @@ public class BlobController {
 	@Autowired
 	private BlobService blobService;
 
+	@Autowired
+	private ContainerService containerService;
+	
 	@GetMapping("/")
 	public ResponseEntity<?> getBlob(@RequestParam String containerName, @RequestParam String blobName) {
 		URI uri = blobService.download(containerName, blobName);
@@ -44,11 +47,7 @@ public class BlobController {
 
 	@DeleteMapping("/all")
 	public ResponseEntity<?> deleteAllBlob(@RequestParam String containerName, @RequestParam String subDirectoryName) {
-		List<FileDetails> fileList = blobService.getDirectoryListDetails(containerName, subDirectoryName);
-		for (FileDetails file : fileList) {
-			File f = new File(file.getFileUrl());
-			blobService.deleteBlob(containerName, subDirectoryName + File.separator + f.getName());
-		}
+		containerService.clearSubDirectory(containerName, subDirectoryName);
 		return ResponseEntity.ok().build();
 	}
 

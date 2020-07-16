@@ -6,314 +6,544 @@
 	},
 	"item": [
 		{
-			"name": "Get All Containers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8090/container/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"container",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All SubDirectories",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "containerName",
-							"value": "test",
-							"type": "text"
+			"name": "Container",
+			"item": [
+				{
+					"name": "Get All Containers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/container/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"container",
+								""
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8090/container/subdirectory",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"container",
-						"subdirectory"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All ContainerBlobs",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "containerName",
-							"value": "test",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8090/container/blobs",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"container",
-						"blobs"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create Container",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "containerName",
-							"value": "test",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8090/container/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"container",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Container",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "containerName",
-							"value": "test",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8090/container/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"container",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UploadFiles to Container",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "containerName",
-							"value": "test",
-							"type": "text"
+				{
+					"name": "Get All SubDirectories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text"
+								}
+							]
 						},
-						{
-							"key": "files",
-							"type": "file",
-							"src": "/C:/Users/bh324231/Desktop/to do.txt"
+						"url": {
+							"raw": "http://localhost:8090/container/subdirectory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"container",
+								"subdirectory"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8090/container/uploadfiles/container",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"container",
-						"uploadfiles",
-						"container"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UploadFiles to Container and Subdirectory",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "containerName",
-							"value": "test",
-							"type": "text"
+				{
+					"name": "Get All ContainerBlobs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text"
+								}
+							]
 						},
-						{
-							"key": "files",
-							"type": "file",
-							"src": "/C:/Users/bh324231/Desktop/to do.txt"
+						"url": {
+							"raw": "http://localhost:8090/container/blobs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"container",
+								"blobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Container",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text"
+								}
+							]
 						},
-						{
-							"key": "subDirectoryName",
-							"value": "files",
-							"type": "text"
+						"url": {
+							"raw": "http://localhost:8090/container/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"container",
+								""
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8090/container/uploadfiles/subdirectory",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"container",
-						"uploadfiles",
-						"subdirectory"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Clear Container",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "containerName",
-							"value": "test",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8090/container/clear",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"container",
-						"clear"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All Blobs in Subdirectory",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8090/blob/test/files",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"blob",
-						"test",
-						"files"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Clear Subdirectory",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "containerName",
-							"value": "test",
-							"type": "text"
+				{
+					"name": "Delete Container",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text"
+								}
+							]
 						},
-						{
-							"key": "subdirectory",
-							"value": "files",
-							"type": "text"
+						"url": {
+							"raw": "http://localhost:8090/container/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"container",
+								""
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8090/container/clear/subdirectory",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8090",
-					"path": [
-						"container",
-						"clear",
-						"subdirectory"
-					]
+				{
+					"name": "UploadFiles to Container",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/bh324231/Desktop/to do.txt"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/container/uploadfiles/container",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"container",
+								"uploadfiles",
+								"container"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UploadFiles to Container and Subdirectory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/bh324231/Desktop/to do.txt"
+								},
+								{
+									"key": "subDirectoryName",
+									"value": "files",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/container/uploadfiles/subdirectory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"container",
+								"uploadfiles",
+								"subdirectory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Container",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/container/clear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"container",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Subdirectory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "subdirectory",
+									"value": "files",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/container/clear/subdirectory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"container",
+								"clear",
+								"subdirectory"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Blob",
+			"item": [
+				{
+					"name": "Get All Blobs in Subdirectory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/blob/test/files",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"blob",
+								"test",
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete A Blob",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "blobName",
+									"value": "files/to do.txt",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/blob/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"blob",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get A Blob",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/blob/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"blob",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Blobs",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "blobName",
+									"value": "files/to do.txt",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "subDirectoryName",
+									"value": "files",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/blob/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"blob",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Blobs from a container",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "blobName",
+									"value": "files/to do.txt",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "subDirectoryName",
+									"value": "files",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/blob/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"blob",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Blobs from a subdirectory",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "containerName",
+									"value": "test",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "blobName",
+									"value": "files/to do.txt",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "subDirectoryName",
+									"value": "files",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/blob/test/files",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"blob",
+								"test",
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Move blob fro one subdirectory to another",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"srcBlobName\":\"files/to do.txt\",\r\n\t\"containerName\":\"test\",\r\n\t\"destContainerName\":\"test\",\r\n\t\"destBlobName\":\"doc/to do.txt\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/blob/move",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"blob",
+								"move"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [

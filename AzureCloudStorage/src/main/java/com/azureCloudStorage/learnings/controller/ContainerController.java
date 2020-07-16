@@ -1,7 +1,6 @@
 package com.azureCloudStorage.learnings.controller;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.azureCloudStorage.learnings.service.BlobService;
 import com.azureCloudStorage.learnings.service.ContainerService;
 
 @RestController
@@ -30,9 +28,6 @@ public class ContainerController {
 
 	@Autowired
 	private ContainerService containerService;
-
-	@Autowired
-	private BlobService blobService;
 
 	@GetMapping("/")
 	public ResponseEntity<?> getAllContainers() {
@@ -84,20 +79,15 @@ public class ContainerController {
 
 	@DeleteMapping("/clear")
 	public ResponseEntity<?> clearContainer(@RequestParam(name = "containerName") @NotEmpty String container) {
-		List<String> list = containerService.getContainerBlobs(container);
-		for (String blob : list) {
-			blobService.deleteBlob(container, blob);
-		}
+		containerService.clearContainer(container);
 		return new ResponseEntity<>("", HttpStatus.OK);
 	}
 
 	@DeleteMapping("/clear/subdirectory")
 	public ResponseEntity<?> clearSubdirectory(@RequestParam(name = "containerName") @NotEmpty String container,
 			@RequestParam(name = "subdirectory") @NotEmpty String subdirectory) {
-		List<String> fileList = containerService.getBlobList(container, subdirectory);
-		for (String file : fileList) {
-			blobService.deleteBlob(container, file);
-		}
+		containerService.clearSubDirectory(container, subdirectory);
 		return new ResponseEntity<>("", HttpStatus.OK);
 	}
+
 }
